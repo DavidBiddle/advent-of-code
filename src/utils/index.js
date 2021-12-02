@@ -36,4 +36,6 @@ const arrayCompare = (element, index, array) => {
   );
 };
 
-export { slidingTotal, arrayCompare };
+const parseInputToArray = (rawInput) => rawInput.split("\n");
+
+export { slidingTotal, arrayCompare, parseInputToArray };

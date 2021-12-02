@@ -1,5 +1,5 @@
 import run from "aocrunner";
-import { slidingTotal, arrayCompare } from "../utils/index.js";
+import { slidingTotal, arrayCompare, parseInputToArray } from "../utils/index.js";
 
 const testData = `
 199
@@ -13,8 +13,6 @@ const testData = `
 260
 263
 `;
-
-const parseInputToArray = (rawInput) => rawInput.split("\n");
 
 const part1 = (rawInput) => {
   const input = parseInputToArray(rawInput);

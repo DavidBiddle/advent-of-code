@@ -44,7 +44,7 @@ const calculateGammaAndEpsilon = (input) => {
 };
 
 const mostCommonBitAtIndex = (array, index) => {
-  const resultsWith1in = array.filter((element) => element[index] === '1');
+  const resultsWith1in = array.filter((element) => element[index] === "1");
   const average = array.length / 2;
 
   if (resultsWith1in.length >= average) {
@@ -71,21 +71,23 @@ const part2 = (rawInput) => {
   const input = parseInputToArray(rawInput).map((element) => element.split(""));
 
   let oxygenRatings = input;
-  for(let i = 0; oxygenRatings.length > 1; i++) {
+  for (let i = 0; oxygenRatings.length > 1; i++) {
     oxygenRatings = oxygenRatings.filter((element) => {
-      return parseIntBinary(element[i]) == mostCommonBitAtIndex(oxygenRatings, i)
+      return (
+        parseIntBinary(element[i]) == mostCommonBitAtIndex(oxygenRatings, i)
+      );
     });
   }
   const oxygenRating = parseIntBinary(oxygenRatings[0].join(""));
 
   let co2Ratings = input;
-  for(let i = 0; co2Ratings.length > 1; i++) {
+  for (let i = 0; co2Ratings.length > 1; i++) {
     co2Ratings = co2Ratings.filter((element) => {
-      return parseIntBinary(element[i]) == leastCommonBitAtIndex(co2Ratings, i)
+      return parseIntBinary(element[i]) == leastCommonBitAtIndex(co2Ratings, i);
     });
   }
   const co2Rating = parseIntBinary(co2Ratings[0].join(""));
-  const result = oxygenRating * co2Rating
+  const result = oxygenRating * co2Rating;
 
   return result;
 };

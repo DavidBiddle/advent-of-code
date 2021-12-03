@@ -71,21 +71,25 @@ const part2 = (rawInput) => {
   const input = parseInputToArray(rawInput).map((element) => element.split(""));
 
   let oxygenRatings = input;
-  for (let i = 0; oxygenRatings.length > 1; i++) {
-    oxygenRatings = oxygenRatings.filter((element) => {
-      return (
-        parseIntBinary(element[i]) == mostCommonBitAtIndex(oxygenRatings, i)
-      );
-    });
+  let co2Ratings = input;
+  const length = input[0].length;
+
+  for (let i = 0; i < length; i++) {
+    const mostCommonBit = mostCommonBitAtIndex(oxygenRatings, i);
+    const leastCommonBit = leastCommonBitAtIndex(co2Ratings, i);
+    if (oxygenRatings.length > 1) {
+      oxygenRatings = oxygenRatings.filter((element) => {
+        return parseIntBinary(element[i]) == mostCommonBit;
+      });
+    }
+    if (co2Ratings.length > 1) {
+      co2Ratings = co2Ratings.filter((element) => {
+        return parseIntBinary(element[i]) == leastCommonBit;
+      });
+    }
   }
   const oxygenRating = parseIntBinary(oxygenRatings[0].join(""));
 
-  let co2Ratings = input;
-  for (let i = 0; co2Ratings.length > 1; i++) {
-    co2Ratings = co2Ratings.filter((element) => {
-      return parseIntBinary(element[i]) == leastCommonBitAtIndex(co2Ratings, i);
-    });
-  }
   const co2Rating = parseIntBinary(co2Ratings[0].join(""));
   const result = oxygenRating * co2Rating;
 

@@ -1,5 +1,5 @@
 import run from "aocrunner";
-import { parseInputToArray } from "../utils/index.js";
+import { parseInputToArray, parseIntDecimal } from "../utils/index.js";
 
 const testData = `
 00100
@@ -15,9 +15,6 @@ const testData = `
 00010
 01010
 `;
-
-const parseIntDecimal = (string) => parseInt(string, 10);
-const parseIntBinary = (string) => parseInt(string, 2);
 
 const epsilonReducer = (previous, current) => {
   const newValue = current.map(parseIntDecimal).map((element, index) => {

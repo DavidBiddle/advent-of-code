@@ -38,4 +38,25 @@ const arrayCompare = (element, index, array) => {
 
 const parseInputToArray = (rawInput) => rawInput.split("\n");
 
-export { slidingTotal, arrayCompare, parseInputToArray };
+const parseIntDecimal = (string) => parseInt(string, 10);
+
+const parseIntBinary = (string) => parseInt(string, 2);
+
+const add = (accumulator, value) => accumulator + value;
+
+const sumArray = (array) => array.reduce(add, 0);
+
+// nicked this from stackoverflow
+const transposeMatrix = (array) => {
+  return Object.keys(array[0]).map((column) => array.map((row) => row[column]));
+};
+
+export {
+  slidingTotal,
+  arrayCompare,
+  parseInputToArray,
+  parseIntDecimal,
+  parseIntBinary,
+  sumArray,
+  transposeMatrix,
+};

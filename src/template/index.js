@@ -1,6 +1,8 @@
 import run from "aocrunner";
 import { parseInputToArray } from "../utils/index.js";
 
+const testData = ``;
+
 const part1 = (rawInput) => {
   const input = parseInputToArray(rawInput);
 
@@ -15,15 +17,11 @@ const part2 = (rawInput) => {
 
 run({
   part1: {
-    tests: [
-      // { input: ``, expected: "" },
-    ],
+    tests: [{ input: testData, expected: 0 }],
     solution: part1,
   },
   part2: {
-    tests: [
-      // { input: ``, expected: "" },
-    ],
+    tests: [{ input: testData, expected: 0 }],
     solution: part2,
   },
   trimTestInputs: true,

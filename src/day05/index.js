@@ -28,16 +28,16 @@ const isDiagonal = (element) =>
 
 const isNotDiagonal = (element) => !isDiagonal(element);
 
-const generateLinePoints = (line) => {
-  const [start, end] = line;
-  const linePoints = [];
-  const stepX = Math.sign(end.x - start.x);
-  const stepY = Math.sign(end.y - start.y);
+const isGreaterThan1 = (element) => element > 1;
 
-  const maxNumberOfSteps = Math.max(
-    Math.abs(end.x - start.x),
-    Math.abs(end.y - start.y),
-  );
+const generateLinePoints = (line) => {
+  const linePoints = [];
+  const [start, end] = line;
+  const deltaX = end.x - start.x;
+  const deltaY = end.y - start.y;
+  const stepX = Math.sign(deltaX);
+  const stepY = Math.sign(deltaY);
+  const maxNumberOfSteps = Math.max(Math.abs(deltaX), Math.abs(deltaY));
 
   for (let i = 0; i <= maxNumberOfSteps; i++) {
     const x = i * stepX + start.x;
@@ -56,28 +56,26 @@ const drawLineOnMap = (map, line) => {
   const linePoints = generateLinePoints(line);
 
   linePoints.forEach((point) => {
-    if (!map[point.y]) map[point.y] = [];
+    if (!map[point.y]) {
+      map[point.y] = [];
+    }
 
-    map[point.y][point.x] = map[point.y][point.x]
-      ? map[point.y][point.x] + 1
-      : 1;
+    const mapPointValue = map[point.y][point.x] ?? 0;
+
+    map[point.y][point.x] = mapPointValue + 1;
   });
 
   return map;
 };
 
 const drawMap = (lines) => {
-  let map = [];
-  lines.forEach((line) => {
-    map = drawLineOnMap(map, line);
-  });
+  const map = lines.reduce(drawLineOnMap, []);
+
   return map;
 };
 
 const getIntersections = (lines) =>
-  drawMap(lines)
-    .flat()
-    .filter((n) => n > 1).length;
+  drawMap(lines).flat().filter(isGreaterThan1).length;
 
 const part1 = (rawInput) => {
   const input = processInput(rawInput);

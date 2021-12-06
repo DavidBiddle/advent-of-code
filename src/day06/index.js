@@ -25,26 +25,30 @@ const populateState = (input) => {
   return array;
 };
 
-const calculatePopulationAfterNDays = (initialState, days) => {
-  let state = populateState(initialState);
+const calculateStateAfterNDays = (state, days) => {
+  return days === 0
+    ? state
+    : calculateStateAfterNDays(decrement(state), days - 1);
+};
 
-  for (let i = 0; i < days; i++) {
-    state = decrement(state);
-  }
+const calculatePopulationAfterNDays = (state, days) => {
+  const stateAfterNDays = calculateStateAfterNDays(state, days);
 
-  return sumArray(state);
+  return sumArray(stateAfterNDays);
 };
 
 const part1 = (rawInput) => {
   const input = processInput(rawInput);
-  const population = calculatePopulationAfterNDays(input, 80);
+  const initialState = populateState(input);
+  const population = calculatePopulationAfterNDays(initialState, 80);
 
   return population;
 };
 
 const part2 = (rawInput) => {
   const input = processInput(rawInput);
-  const population = calculatePopulationAfterNDays(input, 256);
+  const initialState = populateState(input);
+  const population = calculatePopulationAfterNDays(initialState, 256);
 
   return population;
 };

@@ -1,5 +1,9 @@
 import run from "aocrunner";
-import { parseInputToArray, parseIntDecimal } from "../utils/index.js";
+import {
+  parseInputToArray,
+  parseIntDecimal,
+  parseIntBinary,
+} from "../utils/index.js";
 
 const testData = `
 00100

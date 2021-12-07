@@ -1,19 +1,19 @@
 import run from "aocrunner";
 import { parseInputToArray } from "../utils/index.js";
 
-const testData = ``;
-
 const part1 = (rawInput) => {
   const input = parseInputToArray(rawInput);
 
-  return;
+  return input;
 };
 
 const part2 = (rawInput) => {
   const input = parseInputToArray(rawInput);
 
-  return;
+  return input;
 };
+
+const testData = ``;
 
 run({
   part1: {
@@ -25,4 +25,5 @@ run({
     solution: part2,
   },
   trimTestInputs: true,
+  onlyTests: false,
 });

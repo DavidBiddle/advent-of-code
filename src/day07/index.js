@@ -6,57 +6,63 @@ const testData = `16,1,2,0,4,2,7,1,2,14`;
 const processInput = (rawInput) =>
   rawInput.split(",").map(parseIntDecimal).sort(compareNumbers);
 
-const fuelCalculationNonLinear = (distance) => {
+const linearFuelAdjustment = (distance) => {
+  return distance;
+};
+const triangularFuelAdjustment = (distance) => {
   return 0.5 * distance * (distance + 1);
 };
 
-const nonLinearComparison = (accumulator, value, targetValue) => {
-  return accumulator + fuelCalculationNonLinear(Math.abs(targetValue - value));
-};
+const totalFuelUsage = (array, targetValue, adjustment) => {
+  const reducer = (accumulator, value) => {
+    return accumulator + adjustment(Math.abs(targetValue - value));
+  };
 
-const linearComparison = (accumulator, value, targetValue) =>
-  accumulator + Math.abs(targetValue - value);
-
-const fuelUsed = (array, targetValue, comparison) => {
-  const totalDistance = array.reduce(
-    (accumulator, value) => comparison(accumulator, value, targetValue),
-    0,
-  );
+  const totalDistance = array.reduce(reducer, 0);
 
   return totalDistance;
 };
 
 const binarySearchArray = (array, functionToMinimize) => {
+  const minimum = array[0];
+  const maximum = array[array.length - 1];
   const testIndex = Math.floor(array.length / 2);
+
   const sign = Math.sign(
-    functionToMinimize(array[0]) - functionToMinimize(array[array.length - 1]),
+    functionToMinimize(minimum) - functionToMinimize(maximum),
   );
-  if (sign === 0) {
-    return functionToMinimize(array[0]);
-  } else if (sign === -1) {
-    return binarySearchArray(array.slice(0, testIndex), functionToMinimize);
-  } else {
-    return binarySearchArray(array.slice(testIndex), functionToMinimize);
+
+  switch (sign) {
+    case 0:
+      return functionToMinimize(maximum);
+    case -1:
+      return binarySearchArray(array.slice(0, testIndex), functionToMinimize);
+    default:
+      return binarySearchArray(array.slice(testIndex), functionToMinimize);
   }
 };
 
-const part1 = (rawInput) => {
-  const input = processInput(rawInput);
+const calculateMinimumFuelUsage = (input, comparison) => {
+  const minimum = input[0];
+  const maximum = input[input.length - 1];
+  const integers = range(minimum, maximum, 1);
 
   const fuelUseFunction = (targetValue) =>
-    fuelUsed(input, targetValue, linearComparison);
+    totalFuelUsage(input, targetValue, comparison);
 
-  return binarySearchArray(input, fuelUseFunction);
+  return binarySearchArray(integers, fuelUseFunction);
+};
+
+const part1 = (rawInput) => {
+  const crabs = processInput(rawInput);
+
+  return calculateMinimumFuelUsage(crabs, linearFuelAdjustment);
 };
 
 const part2 = (rawInput) => {
-  const input = processInput(rawInput);
-  const integers = range(input[0], input[input.length - 1], 1);
+  const crabs = processInput(rawInput);
 
-  const fuelUseFunction = (targetValue) =>
-    fuelUsed(input, targetValue, nonLinearComparison);
-
-  return binarySearchArray(integers, fuelUseFunction);
+  return calculateMinimumFuelUsage(crabs, triangularFuelAdjustment);
 };
 
 run({

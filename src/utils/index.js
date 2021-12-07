@@ -46,6 +46,11 @@ const add = (accumulator, value) => accumulator + value;
 
 const sumArray = (array) => array.reduce(add, 0);
 
+const compareNumbers = (a, b) => a - b;
+
+const range = (start, stop, step) =>
+  Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
+
 // nicked this from stackoverflow
 const transposeMatrix = (array) => {
   return Object.keys(array[0]).map((column) => array.map((row) => row[column]));
@@ -58,5 +63,7 @@ export {
   parseIntDecimal,
   parseIntBinary,
   sumArray,
+  compareNumbers,
   transposeMatrix,
+  range,
 };

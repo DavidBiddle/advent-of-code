@@ -56,6 +56,18 @@ const transposeMatrix = (array) => {
   return Object.keys(array[0]).map((column) => array.map((row) => row[column]));
 };
 
+const splitBySpace = (string) => string.split(" ");
+const splitByComma = (string) => string.split(",");
+
+const isSuperset = (set, subset) => {
+  for (let elem of subset) {
+    if (set.indexOf(elem) === -1) {
+      return false;
+    }
+  }
+  return true;
+};
+
 export {
   slidingTotal,
   arrayCompare,
@@ -66,4 +78,7 @@ export {
   compareNumbers,
   transposeMatrix,
   range,
+  splitBySpace,
+  splitByComma,
+  isSuperset,
 };

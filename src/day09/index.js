@@ -11,23 +11,29 @@ import {
 
 const getRiskFactor = (point) => point + 1;
 
-const isLower = (element, array, x, y) =>
-  isOutOfBounds(array, x, y) || element < array[y][x];
+const getNeighbourCoords = (x, y) => [
+  { x: x - 1, y },
+  { x: x + 1, y },
+  { x, y: y - 1 },
+  { x, y: y + 1 },
+];
 
-const isHorizontalLowPoint = (element, indexX, indexY, array) => {
-  const left = isLower(element, array, indexX - 1, indexY);
-  const right = isLower(element, array, indexX + 1, indexY);
-  const up = isLower(element, array, indexX, indexY - 1);
-  const down = isLower(element, array, indexX, indexY + 1);
+const findNeighbours = (array, coords) => {
+  const neighbours = coords
+    .filter((coord) => !isOutOfBounds(array, coord.x, coord.y))
+    .map((coord) => array[coord.y][coord.x]);
 
-  return up && down && left && right;
+  return neighbours;
+};
+
+const isLowPoint = (element, indexX, indexY, array) => {
+  const neighbourCoords = getNeighbourCoords(indexX, indexY);
+  return element < Math.min(...findNeighbours(array, neighbourCoords));
 };
 
 const getLowPoints = (map) => {
   const lowPoints = map.map((line, indexY) =>
-    line.filter((point, indexX) =>
-      isHorizontalLowPoint(point, indexX, indexY, map),
-    ),
+    line.filter((point, indexX) => isLowPoint(point, indexX, indexY, map)),
   );
   return lowPoints;
 };
@@ -45,12 +51,15 @@ const traverseGroups = (x, y, grid) => {
   ) {
     return 0;
   }
+
   let sum = 1;
   grid[y][x].visited = true;
-  sum += traverseGroups(x + 1, y, grid);
-  sum += traverseGroups(x - 1, y, grid);
-  sum += traverseGroups(x, y + 1, grid);
-  sum += traverseGroups(x, y - 1, grid);
+
+  sum += sumArray(
+    getNeighbourCoords(x, y, grid).map((neighbour) =>
+      traverseGroups(neighbour.x, neighbour.y, grid),
+    ),
+  );
 
   return sum;
 };
@@ -110,5 +119,5 @@ run({
     solution: part2,
   },
   trimTestInputs: true,
-  onlyTests: false,
+  // onlyTests: true,
 });

@@ -44,7 +44,11 @@ const parseIntBinary = (string) => parseInt(string, 2);
 
 const add = (accumulator, value) => accumulator + value;
 
+const multiply = (accumulator, value) => accumulator * value;
+
 const sumArray = (array) => array.reduce(add, 0);
+
+const multiplyArray = (array) => array.reduce(multiply, 1);
 
 const compareNumbers = (a, b) => a - b;
 
@@ -56,6 +60,10 @@ const transposeMatrix = (array) => {
   return Object.keys(array[0]).map((column) => array.map((row) => row[column]));
 };
 
+const isOutOfBounds = (grid, x, y) =>
+  y < 0 || y >= grid.length || x < 0 || x >= grid[0].length;
+
+const splitByEmptyString = (string) => string.split("");
 const splitBySpace = (string) => string.split(" ");
 const splitByComma = (string) => string.split(",");
 
@@ -75,9 +83,12 @@ export {
   parseIntDecimal,
   parseIntBinary,
   sumArray,
+  multiplyArray,
   compareNumbers,
   transposeMatrix,
+  isOutOfBounds,
   range,
+  splitByEmptyString,
   splitBySpace,
   splitByComma,
   isSuperset,

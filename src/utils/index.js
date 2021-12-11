@@ -76,6 +76,23 @@ const isSuperset = (set, subset) => {
   return true;
 };
 
+const getNeighbourCoords = (x, y) => [
+  { x: x - 1, y },
+  { x: x + 1, y },
+  { x, y: y - 1 },
+  { x, y: y + 1 },
+];
+
+const getNeighbourCoordsIncludingDiagonals = (x, y) => [
+  { x: x - 1, y },
+  { x: x + 1, y },
+  { x, y: y - 1 },
+  { x, y: y + 1 },
+  { x: x - 1, y: y - 1 },
+  { x: x + 1, y: y + 1 },
+  { x: x + 1, y: y - 1 },
+  { x: x - 1, y: y + 1 },
+];
 export {
   slidingTotal,
   arrayCompare,
@@ -92,4 +109,6 @@ export {
   splitBySpace,
   splitByComma,
   isSuperset,
+  getNeighbourCoords,
+  getNeighbourCoordsIncludingDiagonals,
 };

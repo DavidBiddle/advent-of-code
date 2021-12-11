@@ -7,16 +7,10 @@ import {
   multiplyArray,
   compareNumbers,
   isOutOfBounds,
+  getNeighbourCoords,
 } from "../utils/index.js";
 
 const getRiskFactor = (point) => point + 1;
-
-const getNeighbourCoords = (x, y) => [
-  { x: x - 1, y },
-  { x: x + 1, y },
-  { x, y: y - 1 },
-  { x, y: y + 1 },
-];
 
 const findNeighbours = (array, coords) => {
   const neighbours = coords

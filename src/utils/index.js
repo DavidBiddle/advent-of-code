@@ -55,6 +55,12 @@ const compareNumbers = (a, b) => a - b;
 const range = (start, stop, step) =>
   Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
 
+const getOccurences = (array) =>
+  array.reduce(function (obj, b) {
+    obj[b] = ++obj[b] || 1;
+    return obj;
+  }, {});
+
 // nicked this from stackoverflow
 const transposeMatrix = (array) => {
   return Object.keys(array[0]).map((column) => array.map((row) => row[column]));
@@ -93,6 +99,10 @@ const getNeighbourCoordsIncludingDiagonals = (x, y) => [
   { x: x + 1, y: y - 1 },
   { x: x - 1, y: y + 1 },
 ];
+
+const getUniqueValues = (array) =>
+  array.filter((value, index, self) => self.indexOf(value) === index);
+
 export {
   slidingTotal,
   arrayCompare,
@@ -111,4 +121,6 @@ export {
   isSuperset,
   getNeighbourCoords,
   getNeighbourCoordsIncludingDiagonals,
+  getUniqueValues,
+  getOccurences,
 };

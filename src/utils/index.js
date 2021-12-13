@@ -100,8 +100,13 @@ const getNeighbourCoordsIncludingDiagonals = (x, y) => [
   { x: x - 1, y: y + 1 },
 ];
 
-const getUniqueValues = (array) =>
-  array.filter((value, index, self) => self.indexOf(value) === index);
+const getUniqueValues = (values) => {
+  const stringifiedValues = values.map(JSON.stringify);
+  const uniqueStringifiedValues = [...new Set(stringifiedValues)];
+  const uniqueValues = uniqueStringifiedValues.map(JSON.parse);
+
+  return uniqueValues;
+};
 
 export {
   slidingTotal,

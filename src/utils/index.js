@@ -108,6 +108,24 @@ const getUniqueValues = (values) => {
   return uniqueValues;
 };
 
+const safelyIncrementObjectValue = (
+  object,
+  valueToIncrement,
+  incrementSize,
+) => {
+  const newObject = Object.assign({}, object);
+
+  if (!(valueToIncrement in newObject)) {
+    newObject[valueToIncrement] = 0;
+  }
+  newObject[valueToIncrement] += incrementSize;
+
+  return newObject;
+};
+
+const getDifferenceBetweenMaxAndMin = (array) =>
+  Math.max(...array) - Math.min(...array);
+
 export {
   slidingTotal,
   arrayCompare,
@@ -128,4 +146,6 @@ export {
   getNeighbourCoordsIncludingDiagonals,
   getUniqueValues,
   getOccurences,
+  safelyIncrementObjectValue,
+  getDifferenceBetweenMaxAndMin,
 };

@@ -126,6 +126,8 @@ const safelyIncrementObjectValue = (
 const getDifferenceBetweenMaxAndMin = (array) =>
   Math.max(...array) - Math.min(...array);
 
+const setContains = (set, itemToCheck) => set.has(JSON.stringify(itemToCheck));
+
 export {
   slidingTotal,
   arrayCompare,
@@ -148,4 +150,5 @@ export {
   getOccurences,
   safelyIncrementObjectValue,
   getDifferenceBetweenMaxAndMin,
+  setContains,
 };

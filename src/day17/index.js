@@ -53,7 +53,7 @@ const part1 = (rawInput) => {
   const { xMin, xMax, yMin, yMax } = processInput(rawInput);
   const successfulVelocities = [];
   for (let velocityX = 1; velocityX <= xMax; velocityX++) {
-    for (let velocityY = 0; velocityY <= 1000; velocityY++) {
+    for (let velocityY = 0; velocityY <= 200; velocityY++) {
       const result = tryFiring(
         velocityX,
         velocityY,
@@ -66,19 +66,19 @@ const part1 = (rawInput) => {
         yMax,
       );
       if (result?.newX) {
-        successfulVelocities.push(result.newPeakHeight);
+        successfulVelocities.push(result);
       }
     }
   }
 
-  return Math.max(...successfulVelocities);
+  return Math.max(...successfulVelocities.map((x) => x.newPeakHeight));
 };
 
 const part2 = (rawInput) => {
   const { xMin, xMax, yMin, yMax } = processInput(rawInput);
   const successfulVelocities = [];
   for (let velocityX = 1; velocityX <= xMax; velocityX++) {
-    for (let velocityY = -1000; velocityY <= 1000; velocityY++) {
+    for (let velocityY = -200; velocityY <= 200; velocityY++) {
       const result = tryFiring(
         velocityX,
         velocityY,
@@ -91,7 +91,7 @@ const part2 = (rawInput) => {
         yMax,
       );
       if (result?.newX) {
-        successfulVelocities.push(result.newPeakHeight);
+        successfulVelocities.push(result);
       }
     }
   }

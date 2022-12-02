@@ -3,32 +3,35 @@ import {
   parseIntDecimal,
   sumArray,
   compareNumbers,
-  add,
 } from "../../../utils/index.mjs";
 
 const parseInput = (rawInput) => rawInput;
 
-const part1 = (rawInput) => {
-  const input = parseInput(rawInput);
-  const elves = input
+const convertToIndividualElves = (values) =>
+  values
     .split("\n\n")
     .map((e) => e.split("\n").map(parseIntDecimal))
     .map(sumArray);
+
+const getTop3 = (values) =>
+  values
+    .sort(compareNumbers)
+    .reverse()
+    .slice(0, 3);
+
+const part1 = (rawInput) => {
+  const input = parseInput(rawInput);
+  const elves = convertToIndividualElves(input);
 
   return Math.max(...elves);
 };
 
 const part2 = (rawInput) => {
   const input = parseInput(rawInput);
-  const elves = input
-    .split("\n\n")
-    .map((e) => e.split("\n").map(parseIntDecimal))
-    .map(sumArray)
-    .sort(compareNumbers)
-    .reverse()
-    .slice(0, 3);
+  const elves = convertToIndividualElves(input);
+  const top3Elves = getTop3(elves);
 
-  return elves.reduce(add, 0);
+  return sumArray(top3Elves);
 };
 
 const testData = `1000
@@ -66,5 +69,5 @@ run({
     solution: part2,
   },
   trimTestInputs: true,
-  onlyTests: false,
+  onlyTests: true,
 });

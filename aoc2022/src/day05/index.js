@@ -27,10 +27,8 @@ const part1 = (rawInput) => {
     const endIndex = endColumn - 1;
 
     for (let i = 0; i < quantity; i++) {
-      if (state[startIndex]) {
-        const crate = state[startIndex].pop();
-        state[endIndex].push(crate);
-      }
+      const crate = state[startIndex].pop();
+      state[endIndex].push(crate);
     }
   });
 

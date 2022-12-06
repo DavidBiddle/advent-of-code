@@ -1,6 +1,6 @@
 import run from "aocrunner";
 
-const parseInput = (rawInput) => rawInput;
+const parseInput = (rawInput) => rawInput.split("");
 
 const getNumberOfUniqueEntriesInLastNItems = (letter, index, array, n) => {
   const startIndex = Math.max(index + 1 - n, 0);
@@ -23,14 +23,14 @@ const getAnswerForNUniqueItems = (input, n) => {
 };
 
 const part1 = (rawInput) => {
-  const input = parseInput(rawInput).split("");
+  const input = parseInput(rawInput);
   const answer = getAnswerForNUniqueItems(input, 4);
 
   return answer;
 };
 
 const part2 = (rawInput) => {
-  const input = parseInput(rawInput).split("");
+  const input = parseInput(rawInput);
   const answer = getAnswerForNUniqueItems(input, 14);
 
   return answer;
